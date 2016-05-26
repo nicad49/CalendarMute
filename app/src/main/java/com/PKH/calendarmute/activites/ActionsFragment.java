@@ -1,11 +1,8 @@
 package com.PKH.calendarmute.activites;
 
-import com.PKH.calendarmute.PreferencesManager;
-import com.PKH.calendarmute.R;
-import com.PKH.calendarmute.service.MuteService;
-
 import android.app.Activity;
-import android.app.Fragment;
+//import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +13,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+
+import com.PKH.calendarmute.PreferencesManager;
+import com.PKH.calendarmute.R;
+import com.PKH.calendarmute.service.MuteService;
 
 public class ActionsFragment extends Fragment {
 
@@ -163,6 +164,10 @@ public class ActionsFragment extends Fragment {
 		@Override
 		public void afterTextChanged(Editable s) { }
 	};
+
+	public ActionsFragment() {
+		// Required Empty public constructor
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

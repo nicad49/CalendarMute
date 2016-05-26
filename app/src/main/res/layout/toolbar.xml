@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    android:id="@+id/mainToolbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:calendarmute="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/PrimaryColor"
+    android:elevation="4dp">
+</android.support.v7.widget.Toolbar>
+
+<!--
+    calendarmute:theme="@style/ActionBarThemeOverlay"
+    app:popupTheme="@style/ActionBarPopTheme"
+    calendarmute:titleTextAppearance="@style/ActionBar.TitleText"
+    -->
+
+
+

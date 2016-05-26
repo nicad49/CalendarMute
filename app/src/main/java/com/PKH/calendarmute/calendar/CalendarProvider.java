@@ -2,17 +2,13 @@ package com.PKH.calendarmute.calendar;
 
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
-
-import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Instances;
-import android.support.v4.content.ContextCompat;
 
 import com.PKH.calendarmute.PreferencesManager;
 import com.PKH.calendarmute.models.Calendar;
@@ -61,28 +57,22 @@ public class CalendarProvider {
 	
 	/**
 	 * List the user's calendars
-	 * @return All calendars of the user, null if they could not be read
+	 * @return All calendars of the user
 	 */
 	public Calendar[] listCalendars(boolean forceRefresh) {
 		
 		if(savedCalendars != null && !forceRefresh)
 			return savedCalendars;
-
-        int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR);
-        if(permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            return null;
-        }
 		
-		Cursor cur;
+		Cursor cur = null;
 		ContentResolver cr = context.getContentResolver();
 		
 		Uri calendarUri = Calendars.CONTENT_URI;
 		
 		cur = cr.query(calendarUri, CALENDAR_PROJECTION, null, null, null);
 		
-		if(cur == null) {
-            return null;
-        }
+		if(cur == null)
+			return null;
 		
 		LinkedHashMap<Long, Boolean> checkedCalendars = PreferencesManager.getCheckedCalendars(context);
 		
@@ -134,14 +124,8 @@ public class CalendarProvider {
 		// Make the calendar ID selection string
 		String calIdsSelect = getEventCalendarIdsSelectString();
 		
-		if(calIdsSelect.equals("")) {
-            return null;
-        }
-
-        int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR);
-        if(permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            return null;
-        }
+		if(calIdsSelect.equals(""))
+			return null;
 		
 		// Selection must be inclusive on the start time, and eclusive on the end time.
 		// This way when setting an alarm at the end of the event, this moment is considered outside of the event
@@ -160,16 +144,13 @@ public class CalendarProvider {
 		Cursor cur = cr.query(getInstancesQueryUri(), INSTANCE_PROJECTION, selection, selectionArgs, Instances.END); // Take the event that ends first
 		
 		CalendarEvent res;
-		if(cur != null && cur.moveToNext()) {
+		if(cur.moveToNext()) {
 			res = new CalendarEvent(cur.getString(INSTANCE_PROJECTION_TITLE_INDEX), cur.getLong(INSTANCE_PROJECTION_BEGIN_INDEX), cur.getLong(INSTANCE_PROJECTION_END_INDEX));
 		}
-		else {
+		else
 			res = null;
-		}
-
-		if(cur != null) {
-			cur.close();
-		}
+		
+		cur.close();
 		return res;
 	}
 	
@@ -204,15 +185,12 @@ public class CalendarProvider {
 		Cursor cur = cr.query(getInstancesQueryUri(), INSTANCE_PROJECTION, selection, selectionArgs, Instances.BEGIN); // Sort by start time to get the first event
 		
 		CalendarEvent res;
-		if(cur != null && cur.moveToNext())
+		if(cur.moveToNext())
 			res = new CalendarEvent(cur.getString(INSTANCE_PROJECTION_TITLE_INDEX), cur.getLong(INSTANCE_PROJECTION_BEGIN_INDEX), cur.getLong(INSTANCE_PROJECTION_END_INDEX));
-		else {
+		else
 			res = null;
-		}
-
-		if(cur != null) {
-			cur.close();
-		}
+		
+		cur.close();
 		return res;
 	}
 	

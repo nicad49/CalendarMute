@@ -1,20 +1,81 @@
 <resources>
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
     </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+
+        <item name="colorPrimary">@color/PrimaryColor</item>
+        <item name="colorPrimaryDark">@color/DarkPrimaryColor</item>
+        <item name="colorAccent">@color/AccentColor</item>
+    </style>
+
+
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimaryDark">@color/DarkPrimaryColor</item>-->
+    <!--</style>-->
+
+    <!--<style name="Theme.Base" parent="AppTheme">-->
+        <!--<item name="colorPrimary">@color/PrimaryColor</item>-->
+        <!--<item name="colorPrimaryDark">@color/DarkPrimaryColor</item>-->
+        <!--<item name="colorAccent">@color/AccentColor</item>-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowBackground">@color/BackgroundColor</item>-->
+    <!--</style>-->
+
+    <!--<style name="Theme.ShredDeck" parent="Theme.Base"/>-->
+
+    <!--<style name="ActionBarThemeOverlay" parent="">-->
+        <!--&lt;!&ndash;<item name="android:textColorPrimary">@color/PrimaryText</item>&ndash;&gt;-->
+        <!--<item name="android:textColorPrimary">@color/Text_Icons</item>-->
+
+        <!--<item name="colorControlHighlight">@color/AccentColor</item>-->
+        <!--&lt;!&ndash;<item name="android:actionMenuTextColor">@color/PrimaryText</item>&ndash;&gt;-->
+        <!--<item name="android:actionMenuTextColor">@color/Text_Icons</item>-->
+        <!--&lt;!&ndash;<item name="android:textColorSecondary">@color/SecondaryText</item>&ndash;&gt;-->
+        <!--<item name="android:textColorSecondary">@color/Text_Icons</item>-->
+        <!--&lt;!&ndash;<item name="android:background">@color/BackgroundColor</item>&ndash;&gt;-->
+    <!--</style>-->
+
+    <!--<style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">-->
+        <!--<item name="android:textColor">@color/Text_Icons</item>-->
+        <!--<item name="android:textSize">18sp</item>-->
+    <!--</style>-->
+
+    <!--<style name="ActionBarPopTheme" parent="AppTheme">-->
+        <!--<item name="android:background">@color/md_white_1000</item>-->
+        <!--<item name="android:textColor">@color/md_black_1000</item>-->
+    <!--</style>-->
+
+    <!--<style name="MyEditTextTheme">-->
+        <!--&lt;!&ndash; Used for the bottom line when not selected / focused &ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="colorControlNormal">#9e9e9e</item>&ndash;&gt;-->
+        <!--<item name="colorControlNormal">#c5c5c5</item>-->
+        <!--&lt;!&ndash; colorControlActivated & colorControlHighlight use the colorAccent color by default &ndash;&gt;-->
+        <!--<item name="colorControlActivated">@color/AccentColor</item>-->
+        <!--<item name="colorControlHighlight">@color/AccentColor</item>-->
+    <!--</style>-->
+
+    <!--<style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--<item name="windowNoTitle">true</item>-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
 
 </resources>

@@ -8,8 +8,8 @@ android {
         applicationId "com.pkh.calendarmute"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 5
-        versionName "1.2.1"
+        versionCode 1
+        versionName "1.0"
     }
     buildTypes {
         release {
@@ -21,5 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:support-v13:23.0.1"
+    compile "com.android.support:support-v4:23.0.0"
+    compile 'com.android.support:appcompat-v7:23.0.0'
+    compile 'com.android.support:design:23.0.0'
 }
