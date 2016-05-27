@@ -10,6 +10,7 @@ import com.PKH.calendarmute.views.CalendarAdapter;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
+//import android.support.v4.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ public class CalendarsFragment extends Fragment {
 
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             // Not showing explanations, this should be very obvious
+
             FragmentCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR}, CALENDAR_PERMISSION_REQUEST);
         }
         else {

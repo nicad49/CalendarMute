@@ -4,14 +4,24 @@ import com.PKH.calendarmute.R;
 import com.PKH.calendarmute.service.MuteService;
 
 import android.os.Bundle;
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.Activity;
 
-public class MainActivity extends Activity {
+import android.support.v13.app.FragmentPagerAdapter;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v4.view.ViewPager;
+import android.support.design.widget.TabLayout;
+
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
 	
-	public static final String TAG_TAB_CALENDARS = "calendars";
-	public static final String TAG_TAB_ACTIONS = "actions";
+	public static final String TAB_CALENDARS = "Calendars";
+	public static final String TAB_ACTIONS = "Actions";
 	
 	private static final String KEY_SAVED_CURRENT_TAB = "currentTab";
 	
@@ -20,36 +30,83 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		ActionBar ab = getActionBar();
-		ab.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		
-		// Add tabs
-		Tab tab = ab.newTab()
-				.setText(R.string.agendas)
-				.setTabListener(new CalendarMuteTabListener<>(this, TAG_TAB_CALENDARS, CalendarsFragment.class));
-		ab.addTab(tab);
-		
-		tab = ab.newTab()
-				.setText(R.string.actions)
-				.setTabListener(new CalendarMuteTabListener<>(this, TAG_TAB_ACTIONS, ActionsFragment.class));
-		ab.addTab(tab);
-		
-		if(ACTION_SHOW_ACTIONS.equals(getIntent().getAction()))
-			ab.setSelectedNavigationItem(1); // Show actions tab
-		if(savedInstanceState != null && savedInstanceState.containsKey(KEY_SAVED_CURRENT_TAB))
-			ab.setSelectedNavigationItem(savedInstanceState.getInt(KEY_SAVED_CURRENT_TAB));
+		setContentView(R.layout.main_activity);
+
+		// Activate/Add the Toolbar
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+		setupViewPager(viewPager);
+
+		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+		tabLayout.setupWithViewPager(viewPager);
+
+		viewPager.clearOnPageChangeListeners();
+		viewPager.addOnPageChangeListener(new WorkaroundTabLayoutOnPageChangeListener(tabLayout));
 		
 		// Start service
 		MuteService.startIfNecessary(this);
+	}
+
+	public class WorkaroundTabLayoutOnPageChangeListener extends TabLayout.TabLayoutOnPageChangeListener {
+		private final WeakReference<TabLayout> mTabLayoutRef;
+
+		public WorkaroundTabLayoutOnPageChangeListener(TabLayout tabLayout) {
+			super(tabLayout);
+			this.mTabLayoutRef = new WeakReference<TabLayout>(tabLayout);
+		}
+
+		@Override
+		public void onPageSelected(int position) {
+			super.onPageSelected(position);
+			final TabLayout tabLayout = mTabLayoutRef.get();
+			if (tabLayout != null) {
+				final TabLayout.Tab tab = tabLayout.getTabAt(position);
+				if (tab != null) {
+					tab.select();
+				}
+			}
+		}
+	}
+
+	private void setupViewPager(ViewPager viewPager) {
+		ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+		adapter.addFragment(new ActionsFragment(), TAB_ACTIONS);
+		adapter.addFragment(new CalendarsFragment(), TAB_CALENDARS);
+		viewPager.setAdapter(adapter);
+	}
+
+	public class ViewPagerAdapter extends FragmentPagerAdapter {
+		private final List<Fragment> mFragmentList = new ArrayList<>();
+		private final List<String> mFragmentTitleList = new ArrayList<>();
+
+		public ViewPagerAdapter(FragmentManager manager) { super(manager); }
+
+		@Override
+		public Fragment getItem(int position) { return mFragmentList.get(position); }
+
+		@Override
+		public int getCount() { return mFragmentList.size(); }
+
+		public void addFragment(Fragment fragment, String title) {
+			mFragmentList.add(fragment);
+			mFragmentTitleList.add(title);
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) { return mFragmentTitleList.get(position); }
+
 	}
 	
 	
 	@Override
 	protected void onSaveInstanceState(Bundle b) {
 		super.onSaveInstanceState(b);
+
+
 		
-		b.putInt(KEY_SAVED_CURRENT_TAB, getActionBar().getSelectedNavigationIndex());
+		b.putInt(KEY_SAVED_CURRENT_TAB, getSupportActionBar().getSelectedNavigationIndex());
 	}
 
 }
