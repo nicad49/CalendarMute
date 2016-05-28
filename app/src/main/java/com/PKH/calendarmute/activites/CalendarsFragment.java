@@ -10,10 +10,10 @@ import com.PKH.calendarmute.views.CalendarAdapter;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
-//import android.support.v4.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -69,7 +69,7 @@ public class CalendarsFragment extends Fragment {
 	}
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull  int[] grantResults) {
         switch(requestCode) {
             case CALENDAR_PERMISSION_REQUEST:
             case CALENDAR_PERMISSION_REQUEST_FORCE_REFRESH:
@@ -93,7 +93,6 @@ public class CalendarsFragment extends Fragment {
 
     /**
      * Method used to refresh calendars once we have made sure that we have the necessary permissions
-     * @param forceRefresh
      */
     private void refreshCalendarsWithPermission(boolean forceRefresh) {
         Calendar[] savedCalendars;

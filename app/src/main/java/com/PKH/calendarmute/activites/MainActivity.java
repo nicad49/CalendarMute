@@ -5,6 +5,7 @@ import com.PKH.calendarmute.service.MuteService;
 
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -30,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		int currentTab = 0;
+
+		if (savedInstanceState != null) {
+			currentTab = savedInstanceState.getInt(KEY_SAVED_CURRENT_TAB);
+		}
+
 		setContentView(R.layout.main_activity);
 
 		// Activate/Add the Toolbar
@@ -40,10 +48,17 @@ public class MainActivity extends AppCompatActivity {
 		setupViewPager(viewPager);
 
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-		tabLayout.setupWithViewPager(viewPager);
 
-		viewPager.clearOnPageChangeListeners();
-		viewPager.addOnPageChangeListener(new WorkaroundTabLayoutOnPageChangeListener(tabLayout));
+		if (viewPager != null) {
+			viewPager.setCurrentItem(currentTab);
+
+		}
+
+		if (tabLayout != null && viewPager != null) {
+			tabLayout.setupWithViewPager(viewPager);
+			viewPager.clearOnPageChangeListeners();
+			viewPager.addOnPageChangeListener(new WorkaroundTabLayoutOnPageChangeListener(tabLayout));
+		}
 		
 		// Start service
 		MuteService.startIfNecessary(this);
@@ -54,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
 		public WorkaroundTabLayoutOnPageChangeListener(TabLayout tabLayout) {
 			super(tabLayout);
-			this.mTabLayoutRef = new WeakReference<TabLayout>(tabLayout);
+			this.mTabLayoutRef = new WeakReference<>(tabLayout);
 		}
 
 		@Override
@@ -68,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 		}
+
 	}
 
 	private void setupViewPager(ViewPager viewPager) {
@@ -76,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 		adapter.addFragment(new CalendarsFragment(), TAB_CALENDARS);
 		viewPager.setAdapter(adapter);
 	}
+
 
 	public class ViewPagerAdapter extends FragmentPagerAdapter {
 		private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -98,15 +115,20 @@ public class MainActivity extends AppCompatActivity {
 		public CharSequence getPageTitle(int position) { return mFragmentTitleList.get(position); }
 
 	}
-	
+
 	
 	@Override
 	protected void onSaveInstanceState(Bundle b) {
+
+		int position = 0;
+		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+		if (tabLayout != null) {
+			position = tabLayout.getSelectedTabPosition();
+		}
+		b.putInt(KEY_SAVED_CURRENT_TAB, position);
+
 		super.onSaveInstanceState(b);
 
-
-		
-		b.putInt(KEY_SAVED_CURRENT_TAB, getSupportActionBar().getSelectedNavigationIndex());
 	}
 
 }

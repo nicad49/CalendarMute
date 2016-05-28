@@ -6,8 +6,6 @@ import com.PKH.calendarmute.service.MuteService;
 
 import android.app.Activity;
 import android.app.Fragment;
-//import android.support.v4.app.Fragment;
-//import android.app.Notification;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
