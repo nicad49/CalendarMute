@@ -35,6 +35,7 @@ import java.util.List;
 		setContentView(R.layout.main_activity);
 
 		// Activate/Add the Toolbar
+
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
