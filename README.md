@@ -1,5 +1,7 @@
-# CalendarMute
+# MeetingMute
 Automatically mute/priority mode/vibrate your Android device based on calendar events
+
+This is based upon RemiNIV/CalendarMute.  
 
 ## FAQ:
 #### This does not work on Lollipop !
@@ -11,21 +13,6 @@ all sounds if you want (see your phone settings).
 
 In "No interruption" mode, even alarms will be muted, which might not be the desired behavior (configuring
 your priority mode is probably a better option).
-
-#### Can you add this/fix that ?
-I used this app when I was in college, but I have now graduated and I do not need it anymore.
-Working on an app that you do not use, and does not get you any money is not very interesting.
-Which is why I decided to release it under GNU GPL: if you need something fixed, you can do it yourself,
-or contact your nearest geek !
-
-If you find a bug, please submit it to the issue tracker on Github, so that someone can fix it.
-
-Note that I still plan to accept reasonable pull requests on github and release new versions on the Play Store
-if necessary.
-
-#### I have fixed something in the app, can you upload it to Google Play ?
-Please open a pull request on github; I will release the fixed version after approving it and leave you a thank
-note in the app description.
 
 #### What is the "Only busy events" option ?
 This was requested by a user a while ago: when creating an event in Google Calendar, 
