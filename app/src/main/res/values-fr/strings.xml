@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Calendar Mute</string>
+    <string name="app_name">Meeting Mute</string>
     <string name="prochains_evenements">Prochains évènements</string>
     <string name="erreur_listing_agendas">Erreur de listing de vos agendas ; Google Calendar est-il installé ?</string>
     <string name="agendas">Agendas</string>
